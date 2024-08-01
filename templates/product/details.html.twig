@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1>Détails de {{ product.name }}</h1>
+        <img src="{{ product.imageUrl }}" class="img-fluid" alt="{{ product.name }}">
+        <p>{{ product.description }}</p>
+        <p>Prix : {{ product.price }} €</p>
+        <p>SKU : {{ product.sku }}</p>
+        <p>Quantité en stock : {{ product.stockQuantity }}</p>
+        <p>Remise : {{ product.discount }}%</p>
+        <p>Catégorie : {{ product.category }}</p>
+        <p>Note moyenne : {{ product.rating }}</p>
+        <p>Nombre d'avis : {{ product.numberOfReviews }}</p>
+        <a href="{{ path('product_buy', { 'id': product.id }) }}" class="btn btn-success">Acheter maintenant</a>
+        <a href="{{ path('app_accueil') }}" class="btn btn-secondary">Retour</a>
+    </div>
+{% endblock %}

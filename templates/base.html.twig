@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+        {% block stylesheets %}
+        {% endblock %}
+
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+                        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <script src="{{ asset('js/dropdown-hover.js') }}"></script>
+        {% endblock %}
+    </head>
+    <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">E-commerce</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         Produits
+                     </a>
+                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                         <a class="dropdown-item" href="#">Électronique</a>
+                         <a class="dropdown-item" href="#">Mode</a>
+                         <a class="dropdown-item" href="#">Maison</a>
+                         <a class="dropdown-item" href="#">Sport</a>
+                     </div>
+                </li>
+                <li class="nav-item">
+                     <a class="nav-link" href="#">Panier</a>
+                 </li>
+                 <li class="nav-item dropdown">
+                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownContact" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         Contact
+                     </a>
+                     <div class="dropdown-menu" aria-labelledby="navbarDropdownContact">
+                         <a class="dropdown-item" href="#">Support Client</a>
+                         <a class="dropdown-item" href="#">Retours et Échanges</a>
+                         <a class="dropdown-item" href="#">FAQ</a>
+                         <a class="dropdown-item" href="#">Nous Contacter</a>
+                     </div>
+                 </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
+            </form>
+        </div>
+    </nav>
+
+    <!-- Carousel Images-->
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        {% if navbar_data is not empty %}
+            {% for item in navbar_data %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                    <img src="{{ item.source }}" class="d-block w-100" alt="...">
+                </div>
+            {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    <!-- Fin Carousel Images -->
+
+    <div class="container">
+        {% block body %}{% endblock %}
+    </div>
+        
+
+    <!-- footer -->
+    <!-- Footer -->
+    <footer class="bg-light text-center text-lg-start mt-5">
+        <div class="container p-4">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">À propos de nous</h5>
+                    <p>
+                        Nous sommes une plateforme de e-commerce dédiée à offrir les meilleurs produits à nos clients.
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Liens utiles</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a href="#" class="text-dark">Accueil</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-dark">Produits</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-dark">Panier</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-dark">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Contact</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a href="#" class="text-dark">Support Client</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-dark">Retours et Échanges</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-dark">FAQ</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-dark">Nous Contacter</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2023 E-commerce Platform. Tous droits réservés.
+        </div>
+    </footer>
+    <!-- Fin Footer -->
+
+    </body>
+</html>

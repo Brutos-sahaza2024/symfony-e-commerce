@@ -1,0 +1,39 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}ImageAcceuil index{% endblock %}
+
+{% block body %}
+    <h1>ImageAcceuil index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Source</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for image_acceuil in image_acceuils %}
+            <tr>
+                <td>{{ image_acceuil.id }}</td>
+                <td>{{ image_acceuil.title }}</td>
+                <td>{{ image_acceuil.description }}</td>
+                <td>{{ image_acceuil.source }}</td>
+                <td>
+                    <a href="{{ path('app_image_acceuil_show', {'id': image_acceuil.id}) }}">show</a>
+                    <a href="{{ path('app_image_acceuil_edit', {'id': image_acceuil.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_image_acceuil_new') }}">Create new</a>
+{% endblock %}

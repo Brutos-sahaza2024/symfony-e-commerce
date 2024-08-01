@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1>Commander {{ product.name }}</h1>
+        <img src="{{ product.imageUrl }}" class="img-fluid" alt="{{ product.name }}">
+        <p>Prix : {{ product.price }} €</p>
+        <!-- Ajoutez ici le formulaire ou la logique pour l'achat -->
+        <a href="{{ path('app_accueil') }}" class="btn btn-secondary">Retour</a>
+    </div>
+{% endblock %}

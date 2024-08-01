@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="my-4">Bienvenue sur notre site e-commerce</h1>
+
+        <section id="featured-products" class="mb-5">
+            <h2 class="mb-3">Produits en Vedette</h2>
+            <div class="row">
+                {% for product in featuredProducts %}
+                    <div class="col-xl-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <img src="{{ product.imageUrl }}" class="card-img-top" alt="{{ product.name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="card-text">{{ product.description }}</p>
+                                <p class="card-text">{{ product.price }} €</p>
+                            </div>
+                            <div class="card-footer d-flex justify-content-around">
+                                <a href="{{ path('product_show', { 'id': product.id }) }}" class="btn btn-primary">Découvrir</a>
+                                <a href="{{ path('product_buy', { 'id': product.id }) }}" class="btn btn-success">Acheter maintenant</a>
+                                <a href="{{ path('product_details', { 'id': product.id }) }}" class="btn btn-info">En savoir plus</a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <p class="col-12">Aucun produit en vedette pour le moment.</p>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section id="new-arrivals" class="mb-5">
+            <h2 class="mb-3">Nouveautés</h2>
+            <div class="row">
+                {% for product in newArrivals %}
+                    <div class="col-xl-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <img src="{{ product.imageUrl }}" class="card-img-top" alt="{{ product.name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="card-text">{{ product.description }}</p>
+                                <p class="card-text">{{ product.price }} €</p>
+                            </div>
+                            <div class="card-footer d-flex justify-content-around">
+                                <a href="{{ path('product_show', { 'id': product.id }) }}" class="btn btn-primary">Découvrir</a>
+                                <a href="{{ path('product_buy', { 'id': product.id }) }}" class="btn btn-success">Acheter maintenant</a>
+                                <a href="{{ path('product_details', { 'id': product.id }) }}" class="btn btn-info">En savoir plus</a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <p class="col-12">Aucune nouvelle arrivée pour le moment.</p>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section id="promotions" class="mb-5">
+            <h2 class="mb-3">Promotions et Offres Spéciales</h2>
+            <div class="row">
+                {% for product in promotions %}
+                    <div class="col-xl-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <img src="{{ product.imageUrl }}" class="card-img-top" alt="{{ product.name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="card-text">{{ product.description }}</p>
+                                <p class="card-text">
+                                    <s>{{ product.price }} €</s>
+                                    {{ product.price - product.discount }} €
+                                </p>
+                            </div>
+                            <div class="card-footer d-flex justify-content-around">
+                                <a href="{{ path('product_show', { 'id': product.id }) }}" class="btn btn-primary">Découvrir</a>
+                                <a href="{{ path('product_buy', { 'id': product.id }) }}" class="btn btn-success">Acheter maintenant</a>
+                                <a href="{{ path('product_details', { 'id': product.id }) }}" class="btn btn-info">En savoir plus</a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <p class="col-12">Aucune promotion pour le moment.</p>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+{% endblock %}

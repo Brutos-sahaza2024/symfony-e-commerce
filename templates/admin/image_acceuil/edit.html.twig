@@ -1,0 +1,13 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Edit ImageAcceuil{% endblock %}
+
+{% block body %}
+    <h1>Edit ImageAcceuil</h1>
+
+    {{ include('admin/image_acceuil/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_image_acceuil_index') }}" class="btn">back to list</a>
+
+    {{ include('admin/image_acceuil/_delete_form.html.twig') }}
+{% endblock %}

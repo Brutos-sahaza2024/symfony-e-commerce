@@ -1,0 +1,13 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Edit NavLink{% endblock %}
+
+{% block body %}
+    <h1>Edit NavLink</h1>
+
+    {{ include('admin/nav_link/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_nav_link_index') }}" class="btn">back to list</a>
+
+    {{ include('admin/nav_link/_delete_form.html.twig') }}
+{% endblock %}

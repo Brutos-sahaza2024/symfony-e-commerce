@@ -1,0 +1,39 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}NavLink index{% endblock %}
+
+{% block body %}
+    <h1>NavLink index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NameLink</th>
+                <th>NameUrl</th>
+                <th>Category</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for nav_link in nav_links %}
+            <tr>
+                <td>{{ nav_link.id }}</td>
+                <td>{{ nav_link.NameLink }}</td>
+                <td>{{ nav_link.NameUrl }}</td>
+                <td>{{ nav_link.Category ? nav_link.Category|json_encode : '' }}</td>
+                <td>
+                    <a href="{{ path('app_nav_link_show', {'id': nav_link.id}) }}">show</a>
+                    <a href="{{ path('app_nav_link_edit', {'id': nav_link.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_nav_link_new') }}">Create new</a>
+{% endblock %}
