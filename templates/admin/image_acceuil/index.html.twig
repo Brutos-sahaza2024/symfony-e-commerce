@@ -3,37 +3,43 @@
 {% block title %}ImageAcceuil index{% endblock %}
 
 {% block body %}
-    <h1>ImageAcceuil index</h1>
+<h1><i class="fas fa-images"></i> ImageAcceuil index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Source</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for image_acceuil in image_acceuils %}
-            <tr>
-                <td>{{ image_acceuil.id }}</td>
-                <td>{{ image_acceuil.title }}</td>
-                <td>{{ image_acceuil.description }}</td>
-                <td>{{ image_acceuil.source }}</td>
-                <td>
-                    <a href="{{ path('app_image_acceuil_show', {'id': image_acceuil.id}) }}">show</a>
-                    <a href="{{ path('app_image_acceuil_edit', {'id': image_acceuil.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><i class="fas fa-hashtag"></i> Id</th>
+                    <th><i class="fas fa-heading"></i> Title</th>
+                    <th><i class="fas fa-align-justify"></i> Description</th>
+                    <th><i class="fas fa-image"></i> Source</th>
+                    <th><i class="fas fa-cogs"></i> Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for image_acceuil in image_acceuils %}
+                <tr>
+                    <td>{{ image_acceuil.id }}</td>
+                    <td>{{ image_acceuil.title }}</td>
+                    <td>{{ image_acceuil.description }}</td>
+                    <td>{{ image_acceuil.source }}</td>
+                    <td>
+                        <a href="{{ path('app_image_acceuil_show', {'id': image_acceuil.id}) }}" class="btn btn-primary">
+                            <i class="fas fa-eye"></i> Show
+                        </a>
+                        <a href="{{ path('app_image_acceuil_edit', {'id': image_acceuil.id}) }}" class="btn btn-warning">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    <a href="{{ path('app_image_acceuil_new') }}">Create new</a>
+        <a href="{{ path('app_image_acceuil_new') }}" class="btn btn-success">
+            <i class="fas fa-plus"></i> Create new
+        </a>
 {% endblock %}

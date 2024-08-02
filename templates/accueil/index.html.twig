@@ -1,6 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <!-- Carousel Images-->
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        {% if navbar_data is not empty %}
+            {% for item in navbar_data %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                    <img src="{{ item.source }}" class="d-block w-100" alt="...">
+                </div>
+            {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    <!-- Fin Carousel Images -->
+
+
+
     <div class="container">
         <h1 class="my-4">Bienvenue sur notre site e-commerce</h1>
 
@@ -8,21 +24,24 @@
             <h2 class="mb-3">Produits en Vedette</h2>
             <div class="row">
                 {% for product in featuredProducts %}
-                    <div class="col-xl-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <img src="{{ product.imageUrl }}" class="card-img-top" alt="{{ product.name }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ product.name }}</h5>
-                                <p class="card-text">{{ product.description }}</p>
-                                <p class="card-text">{{ product.price }} €</p>
-                            </div>
-                            <div class="card-footer d-flex justify-content-around">
-                                <a href="{{ path('product_show', { 'id': product.id }) }}" class="btn btn-primary">Découvrir</a>
-                                <a href="{{ path('product_buy', { 'id': product.id }) }}" class="btn btn-success">Acheter maintenant</a>
-                                <a href="{{ path('product_details', { 'id': product.id }) }}" class="btn btn-info">En savoir plus</a>
-                            </div>
-                        </div>
-                    </div>
+                     <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card h-100">
+                <img src="{{ product.imageUrl }}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-tag"></i> {{ product.name }}</h5>
+                    <p class="card-text"><i class="fas fa-align-justify"></i> {{ product.description }}</p>
+                    <p class="card-text"><i class="fas fa-euro-sign"></i> {{ product.price }} </p>
+                </div>
+                <div class="card-footer d-flex justify-content-around">
+                    <a href="{{ path('product_details', { 'id': product.id }) }}" class="btn btn-primary">
+                        <i class="fas fa-search"></i> Détails
+                    </a>
+                    <a href="{{ path('app_cart_add', { 'id': product.id }) }}" class="btn btn-info">
+                        <i class="fas fa-shopping-cart"></i> Panier
+                    </a>
+                </div>
+            </div>
+        </div>
                 {% else %}
                     <p class="col-12">Aucun produit en vedette pour le moment.</p>
                 {% endfor %}
@@ -33,21 +52,24 @@
             <h2 class="mb-3">Nouveautés</h2>
             <div class="row">
                 {% for product in newArrivals %}
-                    <div class="col-xl-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <img src="{{ product.imageUrl }}" class="card-img-top" alt="{{ product.name }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ product.name }}</h5>
-                                <p class="card-text">{{ product.description }}</p>
-                                <p class="card-text">{{ product.price }} €</p>
-                            </div>
-                            <div class="card-footer d-flex justify-content-around">
-                                <a href="{{ path('product_show', { 'id': product.id }) }}" class="btn btn-primary">Découvrir</a>
-                                <a href="{{ path('product_buy', { 'id': product.id }) }}" class="btn btn-success">Acheter maintenant</a>
-                                <a href="{{ path('product_details', { 'id': product.id }) }}" class="btn btn-info">En savoir plus</a>
-                            </div>
-                        </div>
-                    </div>
+                     <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card h-100">
+                <img src="{{ product.imageUrl }}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-tag"></i> {{ product.name }}</h5>
+                    <p class="card-text"><i class="fas fa-align-justify"></i> {{ product.description }}</p>
+                    <p class="card-text"><i class="fas fa-euro-sign"></i> {{ product.price }} </p>
+                </div>
+                <div class="card-footer d-flex justify-content-around">
+                    <a href="{{ path('product_details', { 'id': product.id }) }}" class="btn btn-primary">
+                        <i class="fas fa-search"></i> Détails
+                    </a>
+                    <a href="{{ path('app_cart_add', { 'id': product.id }) }}" class="btn btn-info">
+                        <i class="fas fa-shopping-cart"></i> Panier
+                    </a>
+                </div>
+            </div>
+        </div>
                 {% else %}
                     <p class="col-12">Aucune nouvelle arrivée pour le moment.</p>
                 {% endfor %}
@@ -58,24 +80,27 @@
             <h2 class="mb-3">Promotions et Offres Spéciales</h2>
             <div class="row">
                 {% for product in promotions %}
-                    <div class="col-xl-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <img src="{{ product.imageUrl }}" class="card-img-top" alt="{{ product.name }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ product.name }}</h5>
-                                <p class="card-text">{{ product.description }}</p>
-                                <p class="card-text">
-                                    <s>{{ product.price }} €</s>
-                                    {{ product.price - product.discount }} €
-                                </p>
-                            </div>
-                            <div class="card-footer d-flex justify-content-around">
-                                <a href="{{ path('product_show', { 'id': product.id }) }}" class="btn btn-primary">Découvrir</a>
-                                <a href="{{ path('product_buy', { 'id': product.id }) }}" class="btn btn-success">Acheter maintenant</a>
-                                <a href="{{ path('product_details', { 'id': product.id }) }}" class="btn btn-info">En savoir plus</a>
-                            </div>
-                        </div>
-                    </div>
+                     <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card h-100">
+                <img src="{{ product.imageUrl }}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-tag"></i> {{ product.name }}</h5>
+                    <p class="card-text"><i class="fas fa-align-justify"></i> {{ product.description }}</p>
+                    <p class="card-text">
+                        <s><i class="fas fa-euro-sign"></i> {{ product.price }} </s>
+                        <i class="fas fa-euro-sign"></i> {{ product.price - product.discount }} €
+                    </p>
+                </div>
+                <div class="card-footer d-flex justify-content-around">
+                    <a href="{{ path('product_details', { 'id': product.id }) }}" class="btn btn-primary">
+                        <i class="fas fa-search"></i> Détails
+                    </a>
+                    <a href="{{ path('app_cart_add', { 'id': product.id }) }}" class="btn btn-info">
+                        <i class="fas fa-shopping-cart"></i> Panier
+                    </a>
+                </div>
+            </div>
+        </div>
                 {% else %}
                     <p class="col-12">Aucune promotion pour le moment.</p>
                 {% endfor %}

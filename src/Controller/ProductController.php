@@ -31,8 +31,7 @@ class ProductController extends AbstractController
         if (!$product) {
             throw $this->createNotFoundException('Le produit n\'existe pas.');
         }
-
-        // Logique d'achat à ajouter ici
+        
 
         return $this->render('product/buy.html.twig', [
             'product' => $product,

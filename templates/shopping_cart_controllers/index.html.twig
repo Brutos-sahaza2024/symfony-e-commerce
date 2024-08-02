@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier d'achat{% endblock %}
+
+{% block body %}
+       <div class="container">
+        <h1>Panier d'achat</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th>Quantité</th>
+                    <th>Prix</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>
+                            <form action="{{ path('app_cart_update', {id: item.product.id}) }}" method="post" class="d-flex align-items-center">
+                                <input type="number" name="quantity" placeholder="1.0" step="1" min="0" max="10" value="{{ item.quantity }}" class="form-control me-2"/>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </form>
+                        </td>
+                        <td>{{ item.product.price }} €</td>
+                        <td>{{ item.product.price * item.quantity }} €</td>
+                        <td>
+                            <a href="{{ path('app_cart_remove', {id: item.product.id}) }}" class="btn btn-danger">
+                                <i class="fas fa-trash-alt"></i> Supprimer
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="total">
+            <strong>Total: {{ total }} €</strong>
+        </div>
+
+        <h1>Checkout</h1>
+        <form action="{{ path('checkout') }}" method="POST">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-credit-card"></i> Payer avec Stripe
+            </button>
+        </form>
+
+        <a href="{{ path('app_accueil') }}" class="btn btn-primary mt-3">
+            <i class="fas fa-shopping-bag"></i> Continuer vos achats
+        </a>
+    </div>
+{% endblock %}

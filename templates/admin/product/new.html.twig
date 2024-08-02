@@ -7,5 +7,8 @@
 
     {{ include('admin/product/_form.html.twig') }}
 
-    <a href="{{ path('app_product_index') }}">back to list</a>
+   <a href="{{ path('app_product_index') }}" class="btn btn-secondary">
+    <i class="fas fa-arrow-left"></i> back to list
+</a>
+
 {% endblock %}

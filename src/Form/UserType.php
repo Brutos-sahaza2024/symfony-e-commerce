@@ -27,7 +27,9 @@ class UserType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
             ])
-            ->add('password', PasswordType::class)
+            ->add('password', PasswordType::class, [
+                'required'=> false
+            ])
         ;
     }
 

@@ -1,0 +1,18 @@
+.offcanvas-body {
+    padding: 1rem;
+}
+.nav-link {
+    color: #343a40;
+    font-size: 1.1rem;
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+.nav-link:hover {
+    color: #007bff;
+    transform: translateX(5px);
+}
+.nav-link i {
+    font-size: 1.2rem;
+}
+.nav-link span {
+    font-size: 1rem;
+}

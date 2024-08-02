@@ -2,17 +2,24 @@
 
 {% block body %}
     <div class="container">
-        <h1>Détails de {{ product.name }}</h1>
+        <h1><i class="fas fa-info-circle"></i> Détails de {{ product.name }}</h1>
         <img src="{{ product.imageUrl }}" class="img-fluid" alt="{{ product.name }}">
-        <p>{{ product.description }}</p>
-        <p>Prix : {{ product.price }} €</p>
-        <p>SKU : {{ product.sku }}</p>
-        <p>Quantité en stock : {{ product.stockQuantity }}</p>
-        <p>Remise : {{ product.discount }}%</p>
-        <p>Catégorie : {{ product.category }}</p>
-        <p>Note moyenne : {{ product.rating }}</p>
-        <p>Nombre d'avis : {{ product.numberOfReviews }}</p>
-        <a href="{{ path('product_buy', { 'id': product.id }) }}" class="btn btn-success">Acheter maintenant</a>
-        <a href="{{ path('app_accueil') }}" class="btn btn-secondary">Retour</a>
+        <p><i class="fas fa-align-justify"></i> {{ product.description }}</p>
+        <p><i class="fas fa-euro-sign"></i> Prix : {{ product.price }} €</p>
+        <p><i class="fas fa-barcode"></i> SKU : {{ product.sku }}</p>
+        <p><i class="fas fa-boxes"></i> Quantité en stock : {{ product.stockQuantity }}</p>
+        <p><i class="fas fa-percentage"></i> Remise : {{ product.discount }}%</p>
+        <p><i class="fas fa-folder"></i> Catégorie : {{ product.category }}</p>
+        <p><i class="fas fa-star"></i> Note moyenne : {{ product.rating }}</p>
+        <p><i class="fas fa-comments"></i> Nombre d'avis : {{ product.numberOfReviews }}</p>
+        <a href="{{ path('product_buy', { 'id': product.id }) }}" class="btn btn-success">
+            <i class="fas fa-shopping-cart"></i> Acheter maintenant
+        </a>
+        <a href="{{ path('app_cart_add', { 'id': product.id }) }}" class="btn btn-info">
+                        <i class="fas fa-shopping-cart"></i> Panier
+                    </a>
+        <a href="{{ path('app_accueil') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Retour
+        </a>
     </div>
 {% endblock %}
