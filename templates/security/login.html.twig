@@ -1,0 +1,40 @@
+{% extends 'security/base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <form method="post" class="w-50 p-2 shadow">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3 text-center">
+                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+
+        <h1 class="h3 mb-3 font-weight-normal text-center"><i class="fas fa-sign-in-alt"></i> Please sign in</h1>
+        
+        <div class="form-group">
+            <label for="inputEmail"><i class="fas fa-envelope"></i> Email</label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+        </div>
+        
+        <div class="form-group">
+            <label for="inputPassword"><i class="fas fa-lock"></i> Password</label>
+            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+        </div>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+        <div class="text-center">
+            <button class="btn btn-lg btn-primary" type="submit">
+                <i class="fas fa-sign-in-alt"></i> Sign in
+            </button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

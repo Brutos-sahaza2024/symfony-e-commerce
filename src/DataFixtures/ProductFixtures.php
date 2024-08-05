@@ -7,9 +7,16 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use App\Entity\Product;
+use App\Entity\User;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ProductFixtures extends Fixture
 {
+    private $passwordHasher;
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    {
+        $this->passwordHasher = $passwordHasher;
+    }
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
@@ -71,6 +78,19 @@ class ProductFixtures extends Fixture
 
             $manager->persist($image);
         }
+
+        $user = new User();
+        $user->setEmail('admin@example.com');
+        $user->setUsername('superadmin');
+        $user->setRoles(['ROLE_SUPER_ADMIN']);
+
+        $hashedPassword = $this->passwordHasher->hashPassword(
+            $user,
+            'securepassword'
+        );
+        $user->setPassword($hashedPassword);
+
+        $manager->persist($user);
 
         $manager->flush();
     }
