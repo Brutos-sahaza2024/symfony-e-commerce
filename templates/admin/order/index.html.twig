@@ -1,37 +1,44 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Order index{% endblock %}
+{% block title %}Order{% endblock %}
 
 {% block body %}
-    <h1>Order index</h1>
+    <h1><i class="fas fa-shopping-cart"></i> Order index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>TotalPrice</th>
-                <th>Status</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for order in orders %}
-            <tr>
-                <td>{{ order.id }}</td>
-                <td>{{ order.totalPrice }}</td>
-                <td>{{ order.status }}</td>
-                <td>
-                    <a href="{{ path('app_order_show', {'id': order.id}) }}">show</a>
-                    <a href="{{ path('app_order_edit', {'id': order.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<table class="table">
+    <thead>
+        <tr>
+            <th><i class="fas fa-hashtag"></i> Id</th>
+            <th><i class="fas fa-euro-sign"></i> TotalPrice</th>
+            <th><i class="fas fa-clipboard-list"></i> Status</th>
+            <th><i class="fas fa-cogs"></i> Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for order in orders %}
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.totalPrice }}</td>
+            <td>{{ order.status }}</td>
+            <td>
+                <a href="{{ path('app_order_show', {'id': order.id}) }}" class="btn btn-primary">
+                    <i class="fas fa-eye"></i> Show
+                </a>
+                <a href="{{ path('app_order_edit', {'id': order.id}) }}" class="btn btn-warning">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="4">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 
-    <a href="{{ path('app_order_new') }}">Create new</a>
+<a href="{{ path('app_order_new') }}" class="btn btn-success">
+    <i class="fas fa-plus"></i> Create new
+</a>
+
 {% endblock %}

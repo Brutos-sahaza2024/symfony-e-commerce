@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\ImageAcceuil;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -12,6 +13,24 @@ class ProductFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
+
+        $images = [
+            [
+                'title' => 'E-commerce Hero Image',
+                'description' => 'A hero image representing e-commerce solutions.',
+                'source' => 'https://www.ssi-schaefer.com/resource/blob/1179526/b5bdadcababc0904a574ea9d675870c3/e-commerce-hero-dam-image-en-31561--data.jpg',
+            ],
+            [
+                'title' => 'E-commerce Image',
+                'description' => 'A general image related to e-commerce.',
+                'source' => 'https://www.ionos.fr/digitalguide/fileadmin/DigitalGuide/Teaser/e-commerce.jpg',
+            ],
+            [
+                'title' => 'E-commerce Graphic',
+                'description' => 'A graphic representing e-commerce concepts.',
+                'source' => 'https://www.lopinion.ma/photo/art/grande/80036925-57845592.jpg?v=1714923714',
+            ],
+        ];
 
         for ($i = 0; $i < 5; $i++) {
             $product = new Product();
@@ -42,6 +61,15 @@ class ProductFixtures extends Fixture
             }
 
             $manager->persist($product);
+        }
+
+        foreach ($images as $imageData) {
+            $image = new ImageAcceuil();
+            $image->setTitle($imageData['title']);
+            $image->setDescription($imageData['description']);
+            $image->setSource($imageData['source']);
+
+            $manager->persist($image);
         }
 
         $manager->flush();
