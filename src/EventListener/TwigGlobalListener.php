@@ -22,6 +22,8 @@ class TwigGlobalListener implements EventSubscriberInterface
     public function onKernelController(ControllerEvent $event)
     {
         $this->twig->addGlobal('navbar_data', $this->navbarService->getNavbarData());
+        $this->twig->addGlobal('logo', $this->navbarService->getlogo());
+        $this->twig->addGlobal('nombre_notification', $this->navbarService->getNotification());
     }
 
     public static function getSubscribedEvents()

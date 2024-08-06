@@ -1,0 +1,110 @@
+{# templates/support_client/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Support Client{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+     {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success">
+            {{ app.session.flashBag.get('success')|join('') }}
+        </div>
+    {% endif %}
+
+    {% if app.session.flashBag.has('error') %}
+        <div class="alert alert-danger">
+            {{ app.session.flashBag.get('error')|join('') }}
+        </div>
+    {% endif %}
+        <h1 class="mb-4"><i class="fas fa-headset"></i> Support Client</h1>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2><i class="fas fa-question-circle"></i> Comment pouvons-nous vous aider ?</h2>
+
+                <div class="accordion" id="supportAccordion">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h2 class="mb-0">
+                                <button class="btn " type="button" data-toggle="collapse" data-target="#collapseOne">
+                                    <i class="fas fa-truck"></i> Suivi de commande
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#supportAccordion">
+                            <div class="card-body">
+                                <p>Pour suivre votre commande, veuillez utiliser le numéro de suivi fourni dans l'e-mail de confirmation de commande. Vous pouvez également vous connecter à votre compte pour voir le statut de vos commandes récentes.</p>
+                                <a href="{# {{ path('app_account_orders') }} #}" class="btn btn-warning"><i class="fas fa-eye"></i> Voir mes commandes</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
+                            <h2 class="mb-0">
+                                <button class="btn  collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo">
+                                    <i class="fas fa-undo-alt"></i> Retours et remboursements
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#supportAccordion">
+                            <div class="card-body">
+                                {# {{ path('app_returns') }} #}
+                                <p>Nous acceptons les retours dans les 30 jours suivant la réception de votre commande. Pour initier un retour, veuillez vous rendre sur la page de retours et suivre les instructions.</p>
+                                <a href="" class="btn btn-warning"><i class="fas fa-undo-alt"></i> Initier un retour</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header" id="headingThree">
+                            <h2 class="mb-0">
+                                <button class="btn  collapsed" type="button" data-toggle="collapse" data-target="#collapseThree">
+                                    <i class="fas fa-exclamation-triangle"></i> Problèmes techniques
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#supportAccordion">
+                            <div class="card-body">
+                                <p>Si vous rencontrez des problèmes techniques sur notre site, veuillez d'abord essayer de vider le cache de votre navigateur et de vous reconnecter. Si le problème persiste, contactez notre équipe technique.</p>
+                                <a href="{# {{ path('app_contact_tech') }} #}" class="btn btn-warning"><i class="fas fa-envelope"></i> Contacter le support technique</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="mt-5"><i class="fas fa-exclamation-triangle"></i> Vous n'avez pas trouvé de réponse ?</h3>
+                <p>Consultez notre FAQ pour plus d'informations ou contactez-nous directement.</p>
+                <a href="{{ path('app_faq') }}" class="btn btn-secondary mr-2"><i class="fas fa-question-circle"></i> Voir la FAQ</a>
+                <a href="{{ path('app_contact') }}" class="btn btn-warning"><i class="fas fa-envelope"></i> Nous contacter</a>
+
+                <h3 class="mt-5"><i class="fas fa-ticket-alt"></i> Soumettre un Ticket de Support</h3>
+                <p>Si vous avez d'autres préoccupations, veuillez remplir le formulaire ci-dessous pour soumettre un ticket de support.</p>
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <button class="btn btn-warning"><i class="fas fa-paper-plane"></i> Soumettre</button>
+                {{ form_end(form) }}
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title"><i class="fas fa-phone"></i> Nous contacter</h3>
+                        <p><strong>Téléphone :</strong> +33 1 23 45 67 89</p>
+                        <p><strong>Email :</strong> support@votresite.com</p>
+                        <p><strong>Horaires :</strong><br>
+                        Lun-Ven : 9h-18h<br>
+                        Sam : 10h-16h</p>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h3 class="card-title"><i class="fas fa-comments"></i> Chat en direct</h3>
+                        <p>Besoin d'aide immédiate ? Discutez avec l'un de nos agents.</p>
+                        <button class="btn btn-success btn-block" id="startChatBtn"><i class="fas fa-comments"></i> Démarrer le chat</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

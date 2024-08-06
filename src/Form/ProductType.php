@@ -2,6 +2,8 @@
 namespace App\Form;
 
 use App\Entity\Product;
+use Proxies\__CG__\App\Entity\Category;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
@@ -14,7 +16,10 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class ProductType extends AbstractType
 {
@@ -35,8 +40,34 @@ class ProductType extends AbstractType
                 'label' => 'Date de création',
                 'widget' => 'single_text',
             ])
+            ->add('type', ChoiceType::class, [
+                'choices' => [
+                    'URL' => 'url',
+                    'File' => 'file',
+                ],
+                'mapped' => false,
+                'expanded' => true,
+                'multiple' => false,
+            ])
             ->add('imageUrl', UrlType::class, [
                 'label' => 'URL de l\'image',
+                'required' => false,
+                'constraints' => [
+                    new Assert\Url(['groups' => ['url']])
+                ],
+            ])
+            ->add('imageFile', FileType::class, [
+                'label' => 'Fichier de l\'image',
+                'required' => false,
+                'constraints' => [
+                    new Assert\File([
+                        'maxSize' => '5M',
+                        'mimeTypes' => [
+                            'image/*',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid image file',
+                    ])
+                ],
             ])
             ->add('sku', TextType::class, [
                 'label' => 'SKU',
@@ -45,17 +76,15 @@ class ProductType extends AbstractType
                 'label' => 'Quantité en stock',
             ])
             ->add('discount', NumberType::class, [
-                'label' => 'Remise (%)',
+                'label' => 'Remise ($)',
                 'scale' => 2,
             ])
-            ->add('category', ChoiceType::class, [
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name',
                 'label' => 'Catégorie',
-                'choices' => [
-                    'Électronique' => 'electronique',
-                    'Mode' => 'vetements',
-                    'Maison' => 'maison',
-                    'Sport' => 'sport',
-                ],
+                'placeholder' => 'Choisissez une catégorie',
+                'required' => false,
             ])
             ->add('rating', NumberType::class, [
                 'label' => 'Note',
@@ -96,6 +125,15 @@ class ProductType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Product::class,
+            'validation_groups' => function (FormInterface $form) {
+                $data = $form->getData();
+                if ($data->getImageUrl()) {
+                    return ['Default', 'url'];
+                } elseif ($data->getImageFile()) {
+                    return ['Default', 'file'];
+                }
+                return ['Default'];
+            },
         ]);
     }
 }

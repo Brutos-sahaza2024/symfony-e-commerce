@@ -36,7 +36,7 @@ Ce projet est une application e-commerce basée sur Symfony, utilisant Docker po
 - Port: 5432
 - Utilisateur: symfony (ou le nom d'utilisateur que vous avez défini dans docker-compose.yml)
 - Mot de passe: password (ou le mot de passe que vous avez défini dans docker-compose.yml)
-- **Mailpit**: http://localhost:32772
+- **Mailpit**: http://localhost:8025
 
 
 ## Développement

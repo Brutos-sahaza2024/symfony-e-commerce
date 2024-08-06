@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ProductRepository;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -26,7 +28,7 @@ class Product
     #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageUrl = null;
 
     #[ORM\Column(length: 255)]
@@ -37,9 +39,6 @@ class Product
 
     #[ORM\Column(type: Types::DECIMAL, precision: 5, scale: 2)]
     private ?string $discount = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $category = null;
 
     #[ORM\Column]
     private ?float $rating = null;
@@ -64,6 +63,18 @@ class Product
 
     #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
     private ?\DateTimeImmutable $promotionEndDate = null;
+
+    /**
+     * @var File|null
+     */
+    private $imageFile;
+
+    #[ORM\Column(length: 500, nullable: true)]
+    private ?string $imageFilename = null;
+
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    private ?Category $category = null;
+
 
     public function getId(): ?int
     {
@@ -119,7 +130,7 @@ class Product
         return $this->imageUrl;
     }
 
-    public function setImageUrl(string $imageUrl): self
+    public function setImageUrl(?string $imageUrl): static
     {
         $this->imageUrl = $imageUrl;
         return $this;
@@ -161,17 +172,6 @@ class Product
         return $this;
     }
 
-    public function getCategory(): ?string
-    {
-        return $this->category;
-    }
-
-    public function setCategory(string $category): static
-    {
-        $this->category = $category;
-
-        return $this;
-    }
 
     public function getRating(): ?float
     {
@@ -265,6 +265,42 @@ class Product
     public function setPromotionEndDate(\DateTimeImmutable $promotionEndDate): static
     {
         $this->promotionEndDate = $promotionEndDate;
+
+        return $this;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile): self
+    {
+        $this->imageFile = $imageFile;
+
+        return $this;
+    }
+
+    public function getImageFilename(): ?string
+    {
+        return $this->imageFilename;
+    }
+
+    public function setImageFilename(?string $imageFilename): static
+    {
+        $this->imageFilename = $imageFilename;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }

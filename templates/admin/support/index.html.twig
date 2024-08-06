@@ -1,0 +1,48 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Tickets de Support{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="mb-4"><i class="fas fa-ticket-alt"></i> Tickets de Support</h1>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Sujet</th>
+                    <th>Description</th>
+                    <th>Email</th>
+                    <th>Date de Création</th>
+                    <th>Notifications</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ticket in tickets %}
+                    <tr>
+                        <td>{{ ticket.id }}</td>
+                        <td><i class="fas fa-tag"></i> {{ ticket.subject }}</td>
+                        <td><i class="fas fa-file-alt"></i> {{ ticket.description }}</td>
+                        <td><i class="fas fa-envelope"></i> {{ ticket.email }}</td>
+                        <td><i class="fas fa-calendar-alt"></i> {{ ticket.createdAt|date('d/m/Y H:i') }}</td>
+                        <td>
+                            <ul>
+                                {% for notification in ticket.notifications %}
+                                    <li>
+                                        <i class="fas fa-bell"></i> {{ notification.message }}
+                                        <span class="float-right">
+                                            {{ notification.creatdAt|date('d/m/Y H:i') }}
+                                            {% if not notification.isRead %}
+                                                <a href="{{ path('notification_mark_as_read', {id: notification.id}) }}" class="btn btn-sm btn-primary">Marquer comme lu</a>
+                                            {% endif %}
+                                        </span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

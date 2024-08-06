@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container m-2">
+    <h1 class="mb-4"><i class="bi bi-search"></i> Résultats de recherche pour "{{ query }}"</h1>
+
+{% if products|length > 0 %}
+    <ul class="list-group">
+    {% for product in products %}
+        <li class="shadow m-1 p-1">
+            <a href="{{ path('product_show', {'id': product.id}) }}" class="link-warning">
+                <h3><i class="bi bi-box"></i> {{ product.name }}</h3>
+            </a>
+            <p><i class="bi bi-info-circle"></i> {{ product.description|slice(0, 100) }}...</p>
+            {% if product.category %}
+                <p><i class="bi bi-tags"></i> Catégorie : {{ product.category.name }}</p>
+            {% endif %}
+        </li>
+
+    {% endfor %}
+    </ul>
+    {% else %}
+        <div class="alert alert-warning mt-3" role="alert">
+            <i class="bi bi-exclamation-circle"></i> Aucun résultat trouvé.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

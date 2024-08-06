@@ -3,9 +3,11 @@
 {% block title %}New ImageAcceuil{% endblock %}
 
 {% block body %}
-    <h1>Create new ImageAcceuil</h1>
+    <h1><i class="fas fa-plus-circle"></i> Create new ImageAcceuil</h1>
 
     {{ include('admin/image_acceuil/_form.html.twig') }}
 
-    <a href="{{ path('app_image_acceuil_index') }}">back to list</a>
+    <a href="{{ path('app_image_acceuil_index') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> back to list
+    </a>
 {% endblock %}

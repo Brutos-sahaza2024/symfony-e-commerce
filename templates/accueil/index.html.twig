@@ -28,7 +28,7 @@
                 {% for product in featuredProducts %}
                      <div class="col-xl-4 col-md-6 mb-4">
             <div class="card h-100">
-                <img src="{{ product.imageUrl }}" class="card-img-top" alt="{{ product.name }}">
+                <img src="{{ product.imageUrl ? product.imageUrl : asset('images/' ~ product.imageFilename) }}" alt="Image for {{ product.name }}" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-tag"></i> {{ product.name }}</h5>
                     <p class="card-text"><i class="fas fa-align-justify"></i> {{ product.description }}</p>
@@ -57,7 +57,7 @@
                 {% for product in newArrivals %}
                      <div class="col-xl-4 col-md-6 mb-4">
             <div class="card h-100">
-                <img src="{{ product.imageUrl }}" class="card-img-top" alt="{{ product.name }}">
+                <img src="{{ product.imageUrl ? product.imageUrl : asset('images/' ~ product.imageFilename) }}" alt="Image for {{ product.name }}" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-tag"></i> {{ product.name }}</h5>
                     <p class="card-text"><i class="fas fa-align-justify"></i> {{ product.description }}</p>
@@ -86,7 +86,7 @@
                 {% for product in promotions %}
                      <div class="col-xl-4 col-md-6 mb-4">
             <div class="card h-100">
-                <img src="{{ product.imageUrl }}" class="card-img-top" alt="{{ product.name }}">
+                <img src="{{ product.imageUrl ? product.imageUrl : asset('images/' ~ product.imageFilename) }}" alt="Image for {{ product.name }}" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-tag"></i> {{ product.name }}</h5>
                     <p class="card-text"><i class="fas fa-align-justify"></i> {{ product.description }}</p>
