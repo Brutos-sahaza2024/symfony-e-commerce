@@ -1,3 +1,6 @@
+body{
+    padding-top: 56px;
+}
 .offcanvas-body {
     padding: 1rem;
 }
@@ -16,6 +19,11 @@
 .nav-link span {
     font-size: 1rem;
 }
-.btn-link {
-    color: #0f2b46;
+.carousel-inner {
+    height: 50vh;
+}
+.carousel-item img {
+    height: 100%;
+    object-fit: contain; 
+    width: 100%; 
 }

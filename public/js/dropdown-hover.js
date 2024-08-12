@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function(){
   document.addEventListener("DOMContentLoaded", function() { 
     const myCarouselElement = document.querySelector('#carouselExampleSlidesOnly');
     const carousel = new bootstrap.Carousel(myCarouselElement, {
-      interval: 5000,
+      interval: 2000,
       touch: true
     });
   });

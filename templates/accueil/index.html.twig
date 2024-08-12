@@ -2,17 +2,29 @@
 
 {% block body %}
     <!-- Carousel Images-->
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        {% if navbar_data is not empty %}
+    {% if navbar_data is not empty %}
+    <div id="myCarousel" class="carousel carousel-dark  slide" data-ride="carousel">
+        <div class="carousel-inner">
             {% for item in navbar_data %}
-                <div class="carousel-item {% if loop.first %}active{% endif %}">
-                    <img src="{{ item.source }}" class="d-block w-100" alt="...">
+              <div class="carousel-item {% if loop.first %}active{% endif %}">
+                <img src="{{ item.source }}" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h3><i class="fas fa-star"></i> {{ item.title }}</h3>
+                  <p><i class="fas fa-info-circle"></i> {{ item.description }}</p>
                 </div>
+              </div>   
             {% endfor %}
-        {% endif %}
-      </div>
+        </div>
+        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Précédent</span>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Suivant</span>
+        </a>
     </div>
+    {% endif %}
     <!-- Fin Carousel Images -->
 
 
