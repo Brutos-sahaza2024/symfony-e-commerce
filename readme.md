@@ -30,7 +30,7 @@ Ce projet est une application e-commerce basée sur Symfony, utilisant Docker po
 
 ## Accès aux services
 
-- **Page d'accueil de l'application**: http://localhost:8080 ou http://127.0.0.1:8080
+- **Page d'accueil de l'application**: http://localhost:8081 ou http://127.0.0.1:8081
 - **Base de données**: 
 - Hôte: database
 - Port: 5432
