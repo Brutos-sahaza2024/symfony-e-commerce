@@ -60,7 +60,8 @@ services:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
     networks:
-      - symfony
+      symfony:
+        ipv4_address: 172.20.0.4
 
 volumes:
   db-data:
@@ -68,3 +69,6 @@ volumes:
 networks:
   symfony:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
