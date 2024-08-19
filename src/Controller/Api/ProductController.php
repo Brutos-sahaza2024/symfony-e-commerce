@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ProductRepository;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/api/product')]
 class ProductController extends AbstractController
