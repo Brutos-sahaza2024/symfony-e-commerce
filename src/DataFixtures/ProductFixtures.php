@@ -48,20 +48,20 @@ class ProductFixtures extends Fixture
 ;
         for ($i = 0; $i < 5; $i++) {
             $product = new Product();
-            $product->setName($faker->word);
-            $product->setDescription($faker->sentence);
-            $product->setPrice($faker->randomFloat(2, 10, 100));
-            $product->setCreatedAt(new \DateTimeImmutable());
-            $product->setImageUrl($faker->imageUrl(640, 480, 'products', true, 'Faker'));
-            $product->setSku($faker->unique()->ean8);
-            $product->setStockQuantity($faker->numberBetween(0, 100));
-            $product->setDiscount($faker->randomFloat(2, 0, 50));
-            $product->setRating($faker->randomFloat(1, 0, 5));
-            $product->setNumberOfReviews($faker->numberBetween(0, 100));
-            $product->setActive($faker->boolean);
-            $product->setFeatured($faker->boolean);
-            $product->setNewArrival($faker->boolean);
-            $product->setOnPromotion($faker->boolean);
+            $product->setName($faker->word)
+                ->setDescription($faker->sentence)
+                ->setPrice($faker->randomFloat(2, 10, 100))
+                ->setCreatedAt(new \DateTimeImmutable())
+                ->setImageUrl($faker->imageUrl(640, 480, 'products', true, 'Faker'))
+                ->setSku($faker->unique()->ean8)
+                ->setStockQuantity($faker->numberBetween(0, 100))
+                ->setDiscount($faker->randomFloat(2, 0, 50))
+                ->setRating($faker->randomFloat(1, 0, 5))
+                ->setNumberOfReviews($faker->numberBetween(0, 100))
+                ->setActive($faker->boolean)
+                ->setFeatured($faker->boolean)
+                ->setNewArrival($faker->boolean)
+                ->setOnPromotion($faker->boolean);
 
             if ($product->IsOnPromotion()) {
                 $promotionStartDate = $faker->dateTimeBetween('-1 month', 'now');
@@ -77,18 +77,18 @@ class ProductFixtures extends Fixture
         }
 
         foreach ($images as $imageData) {
-            $image = new ImageAcceuil();
-            $image->setTitle($imageData['title']);
-            $image->setDescription($imageData['description']);
-            $image->setSource($imageData['source']);
+            $image = (new ImageAcceuil())
+                    ->setTitle($imageData['title'])
+                    ->setDescription($imageData['description'])
+                    ->setSource($imageData['source']);
 
             $manager->persist($image);
         }
 
-        $user = new User();
-        $user->setEmail('admin@example.com');
-        $user->setUsername('superadmin');
-        $user->setRoles(['ROLE_SUPER_ADMIN']);
+        $user = (new User())
+                ->setEmail('admin@example.com')
+                ->setUsername('superadmin')
+                ->setRoles(['ROLE_SUPER_ADMIN']);
 
         $hashedPassword = $this->passwordHasher->hashPassword(
             $user,

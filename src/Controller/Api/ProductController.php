@@ -2,13 +2,14 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\Category;
+use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ProductRepository;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/api/product')]
 class ProductController extends AbstractController
@@ -51,5 +52,19 @@ class ProductController extends AbstractController
         $jsonProduct = $serializer->serialize($product, 'json', ['groups' => 'product:read']);
 
         return new JsonResponse($jsonProduct, 200, [], true);
+    }
+
+    #[Route("/category/{categoryName}", name: "api_products_by_category", methods: ["GET"])]
+    public function byCategory($categoryName, ProductRepository $productRepository,CategoryRepository $categoryRepository, SerializerInterface $serializer): JsonResponse
+    {
+        $category = $categoryRepository->findOneBy(['name' => $categoryName]);
+
+        if (!$category) {
+            throw $this->createNotFoundException('Category not found');
+        }
+        $products = $productRepository->findByCategory($category);
+        $jsonProducts = $serializer->serialize($products, 'json', ['groups' => 'product:read']);
+
+        return new JsonResponse($jsonProducts, 200, [], true);
     }
 }
