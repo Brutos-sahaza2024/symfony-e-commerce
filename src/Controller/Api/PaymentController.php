@@ -25,6 +25,8 @@ class PaymentController extends AbstractController
             $amount += $item['price'] * $item['quantity'];
         }
 
+        $amount = (int) round($amount * 100);
+
         try {
             $paymentIntent = PaymentIntent::create([
                 'amount' => $amount,
