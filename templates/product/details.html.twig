@@ -9,16 +9,48 @@
         <p><i class="fas fa-barcode"></i> SKU : {{ product.sku }}</p>
         <p><i class="fas fa-boxes"></i> Quantité en stock : {{ product.stockQuantity }}</p>
         <p><i class="fas fa-percentage"></i> Remise : {{ product.discount }}%</p>
-        <p><i class="fas fa-folder"></i> Catégorie : {{ product.category }}</p>
-        <p><i class="fas fa-star"></i> Note moyenne : {{ product.rating }}</p>
-        <p><i class="fas fa-comments"></i> Nombre d'avis : {{ product.numberOfReviews }}</p>
+        <p><i class="fas fa-folder"></i> Catégorie : {{ product.category.name }}</p>
+        <p><i class="fas fa-star"></i> Note moyenne : {{ product.getAverageRating() }}</p>
+        <p><i class="fas fa-comments"></i> Nombre d'avis : {{ product.getRatings()|length }}</p>
         <a href="{{ path('product_buy', { 'id': product.id }) }}" class="btn btn-success">
             <i class="fas fa-shopping-cart"></i> Acheter maintenant
         </a>
         <a href="{{ path('app_cart_add', { 'id': product.id }) }}" class="btn btn-info">
                         <i class="fas fa-shopping-cart"></i> Panier
-                    </a>
-        <a href="{{ path('app_accueil') }}" class="btn btn-secondary">
+        </a>
+
+        <h2 class="mt-4">Add a Rating</h2>
+        {{ form_start(ratingForm, {'attr': {'class': 'form'}}) }}
+            <div class="form-group">
+                {{ form_widget(ratingForm.value) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(ratingForm.submit) }}
+            </div>
+        {{ form_end(ratingForm) }}
+        
+        <h2 class="mt-4">Add a Comment</h2>
+        {{ form_start(commentForm, {'attr': {'class': 'form'}}) }}
+            <div class="form-group">
+                {{ form_widget(commentForm.content, {'attr': {'class': 'form-control', 'rows': 5}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(commentForm.submit, {'attr': {'class': 'btn btn-secondary'}}) }}
+            </div>
+        {{ form_end(commentForm) }}
+
+        <h2>Comments</h2>
+        {% for comment in product.comments %}
+            <div class="alert alert-light shadow">
+                <div class="d-flex justify-content-between align-items-center">
+                    <strong>{{ comment.user.username }}</strong>
+                    <small class="text-muted">{{ comment.createdAt|date('Y-m-d H:i') }}</small>
+                </div>
+                <p>{{ comment.content }}</p>
+            </div>
+        {% endfor %}
+
+        <a href="{{ path('app_accueil') }}" class="btn btn-secondary mt-3">
             <i class="fas fa-arrow-left"></i> Retour
         </a>
     </div>
