@@ -397,6 +397,6 @@ class Product
             return $carry + $rating->getValue();
         }, 0);
 
-        return $sum / $ratings->count();
+        return round($sum / $ratings->count(),2);
     }
 }

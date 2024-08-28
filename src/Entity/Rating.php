@@ -4,7 +4,9 @@ namespace App\Entity;
 
 use App\Repository\RatingRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
+#[Groups('groupes:rating')]
 #[ORM\Entity(repositoryClass: RatingRepository::class)]
 class Rating
 {
@@ -14,12 +16,14 @@ class Rating
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups(['product:read'])]
     private ?int $value = null;
 
     #[ORM\ManyToOne(inversedBy: 'ratings')]
     private ?Product $product = null;
 
     #[ORM\ManyToOne(inversedBy: 'ratings')]
+    #[Groups(['product:read'])]
     private ?User $user = null;
 
     #[ORM\Column]

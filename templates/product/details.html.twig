@@ -47,6 +47,9 @@
                     <small class="text-muted">{{ comment.createdAt|date('Y-m-d H:i') }}</small>
                 </div>
                 <p>{{ comment.content }}</p>
+                {% if is_granted('EDIT', comment) %}
+                   <a href="{{ path('comment_edit', {id: comment.id}) }}">Éditer</a>
+                {% endif %}
             </div>
         {% endfor %}
 
