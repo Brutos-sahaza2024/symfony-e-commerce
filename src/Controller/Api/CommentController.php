@@ -60,4 +60,34 @@ class CommentController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/api/comments/{id}', name: 'comment_edit', methods: ['PUT'])]
+    #[IsGranted('EDIT', subject: 'comment')]
+    public function editApi(Request $request, Comment $comment, EntityManagerInterface $em, SerializerInterface $serializer): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        if (!$data || !isset($data['content'])) {
+            return new JsonResponse(['error' => 'Invalid data'], 400);
+        }
+
+        $comment->setContent($data['content']);
+
+        $em->persist($comment);
+        $em->flush();
+
+        $jsonComment = $serializer->serialize($comment, 'json', ['groups' => 'comment']);
+
+        return new JsonResponse($jsonComment, 200, [], true);
+    }
+
+    #[Route('/api/comments/{id}', name: 'comment_delete', methods: ['DELETE'])]
+    #[IsGranted('DELETE', subject: 'comment')]
+    public function delete(Comment $comment, EntityManagerInterface $em): JsonResponse
+    {
+        $em->remove($comment);
+        $em->flush();
+
+        return new JsonResponse(['message' => 'Comment deleted successfully'], 200);
+    }
 }

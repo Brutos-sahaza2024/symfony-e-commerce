@@ -23,11 +23,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
-    #[Groups(['jwt'])]
+    #[Groups(['jwt', 'comment'])]
     private ?string $email = null;
 
     #[ORM\Column]
-    #[Groups(['product:read', 'jwt'])]
+    #[Groups(['product:read', 'jwt', 'comment'])]
     private ?string $username = null;
 
     /**

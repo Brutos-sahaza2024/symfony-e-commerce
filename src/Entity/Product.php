@@ -17,10 +17,13 @@ class Product
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['comment'])]
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['comment'])]
     private ?string $name = null;
+    #[Groups(['comment'])]
 
     #[ORM\Column(type: 'text')]
     private ?string $description = null;

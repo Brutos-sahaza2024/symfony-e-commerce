@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\Security;
 class CommentVoter extends Voter
 {
     const EDIT = 'EDIT';
+    const DELETE = 'DELETE';
 
     private $security;
 
@@ -21,7 +22,7 @@ class CommentVoter extends Voter
 
     protected function supports(string $attribute, $subject): bool
     {
-        return in_array($attribute, [self::EDIT]) && $subject instanceof Comment;
+        return in_array($attribute, [self::EDIT, self::DELETE]) && $subject instanceof Comment;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
@@ -38,12 +39,19 @@ class CommentVoter extends Voter
         switch ($attribute) {
             case self::EDIT:
                 return $this->canEdit($comment, $user);
+            case self::DELETE:
+                return $this->canDelete($comment, $user);
         }
 
         return false;
     }
 
     private function canEdit(Comment $comment, User $user): bool
+    {
+        return $user === $comment->getUser();
+    }
+
+    private function canDelete(Comment $comment, User $user): bool
     {
         return $user === $comment->getUser();
     }

@@ -2,6 +2,7 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\Product;
 use App\Entity\Rating;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,10 +15,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 class RatingController extends AbstractController
 {
     #[Route('/api/product/{id}/ratings', name: 'app_api_rating')]
-    public function addRating(ProductRepository $productRepository, int $id, Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer): JsonResponse
+    public function addRating(Product $product, Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer): JsonResponse
     {
-        $product = $productRepository->find($id);
-
         if (!$product) {
             return new JsonResponse(['error' => 'Product not found'], 404);
         }

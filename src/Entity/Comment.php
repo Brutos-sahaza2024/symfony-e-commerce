@@ -7,28 +7,30 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 
-#[Groups(['groups:comment'])]
+
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['product:read', 'comment'])]
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(['product:read'])]
+    #[Groups(['product:read','comment'])]
     private ?string $content = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[Groups(['comment'])]
     private ?Product $product = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
-    #[Groups(['product:read'])]
+    #[Groups(['product:read', 'comment'])]
     private ?User $user = null;
 
     #[ORM\Column]
-    #[Groups(['product:read'])]
+    #[Groups(['product:read','comment'])]
     private ?\DateTimeImmutable $createdAt = null;
 
     public function getId(): ?int
