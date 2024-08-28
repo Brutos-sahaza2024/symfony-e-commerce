@@ -6,7 +6,7 @@ use App\Repository\RatingRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 
-#[Groups('groupes:rating')]
+#[Groups('rating')]
 #[ORM\Entity(repositoryClass: RatingRepository::class)]
 class Rating
 {

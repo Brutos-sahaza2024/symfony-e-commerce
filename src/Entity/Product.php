@@ -17,7 +17,7 @@ class Product
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     #[ORM\Column(type: 'integer')]
-    #[Groups(['comment'])]
+    #[Groups(['comment', 'rating'])]
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
